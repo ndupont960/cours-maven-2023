@@ -1,4 +1,4 @@
-package fr.imt.coffee.machine;
+package machine;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;

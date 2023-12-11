@@ -8,9 +8,6 @@ import fr.imt.cours.machine.component.SteamPipe;
 import fr.imt.cours.machine.exception.CoffeeTypeCupDifferentOfCoffeeTypeTankException;
 import fr.imt.cours.machine.exception.LackOfWaterInTankException;
 import fr.imt.cours.machine.exception.MachineNotPluggedException;
-import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
-import fr.imt.cours.storage.cupboard.container.*;
-import fr.imt.cours.storage.cupboard.exception.CupNotEmptyException;
 
 public class EspressoCoffeeMachine extends CoffeeMachine{
 
@@ -41,7 +38,7 @@ public class EspressoCoffeeMachine extends CoffeeMachine{
      */
     public CoffeeContainer makeACoffee(Container container, CoffeeType coffeeType) throws LackOfWaterInTankException, InterruptedException, MachineNotPluggedException, CupNotEmptyException, CoffeeTypeCupDifferentOfCoffeeTypeTankException {
         if(!isPlugged()){
-            throw new LackOfWaterInTankException("You must plug your coffee machine");
+            throw new MachineNotPluggedException("You must plug your coffee machine");
         }
 
         if (getWaterTank().getActualVolume() < container.getCapacity()){

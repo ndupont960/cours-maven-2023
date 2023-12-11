@@ -1,4 +1,4 @@
-package fr.imt.coffee.machine.component;
+package machine.component;
 
 import fr.imt.cours.machine.component.ElectricalResistance;
 import org.junit.jupiter.api.Assertions;

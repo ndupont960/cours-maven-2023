@@ -1,4 +1,4 @@
-package fr.imt.coffee.machine.cucumber.steps;
+package machine.cucumber.steps;
 
 import fr.imt.cours.machine.CoffeeMachine;
 import fr.imt.cours.machine.exception.CannotMakeCremaWithSimpleCoffeeMachine;
