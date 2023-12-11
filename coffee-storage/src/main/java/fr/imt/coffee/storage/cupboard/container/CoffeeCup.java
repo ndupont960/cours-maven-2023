@@ -1,4 +1,4 @@
-package fr.imt.coffee.cupboard.container;
+package fr.imt.coffee.storage.cupboard.container;
 
 import fr.imt.coffee.storage.cupboard.coffee.type.CoffeeType;
 

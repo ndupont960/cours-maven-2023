@@ -1,4 +1,4 @@
-package fr.imt.coffee.cupboard;
+package fr.imt.coffee.storage.cupboard;
 
 import fr.imt.coffee.storage.cupboard.container.Container;
 import fr.imt.coffee.storage.cupboard.container.Cup;
