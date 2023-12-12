@@ -96,4 +96,6 @@ public class CucumberStepsCoffeeMachineMakeACoffeeTest {
     public void theCoffeeMachineIsPlugged() {
         Assertions.assertTrue(coffeeMachine.isPlugged());
     }
+
+
 }
