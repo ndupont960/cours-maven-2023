@@ -61,10 +61,23 @@ public class TankTest {
 
     }
 
+    /**
+     * Permet de vérifier si une erreur est renvoyée en cas de valeur négative de volume de réservoir
+     */
     @Test
     void testNegativeVolumeException() {
         Assertions.assertThrows(NegativeTankVolumeException.class, () -> {
             tankUnderTest.decreaseVolumeInTank(3000);
+        });
+    }
+
+    /**
+     * Permet de vérifier si une erreur est renvoyée en cas de dépassement du volume max du réservoir
+     */
+    @Test
+    void testMaximumVolumeExceededException() {
+        Assertions.assertThrows(MaximumVolumeExceededException.class, () -> {
+            tankUnderTest.increaseVolumeInTank(3000);
         });
     }
 }
