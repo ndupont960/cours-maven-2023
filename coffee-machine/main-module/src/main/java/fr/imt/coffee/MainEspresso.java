@@ -20,7 +20,7 @@ public class MainEspresso {
     //INFO, WARNING, DEBUG, ERROR...
     public static final Logger logger = LogManager.getLogger(MainEspresso.class);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws WrongCoffeeTypeInBeanTankException, MaximumVolumeExceededException {
 
         FabricCupboardContainer fabricCupboardContainer = FabricCupboardContainer.getFabricContainerInstance();
         EspressoCoffeeMachine coffeeMachine =

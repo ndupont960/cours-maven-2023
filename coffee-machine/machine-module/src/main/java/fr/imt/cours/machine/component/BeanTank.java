@@ -1,5 +1,7 @@
 package fr.imt.cours.machine.component;
 
+import fr.imt.cours.machine.exception.MaximumVolumeExceededException;
+import fr.imt.cours.machine.exception.WrongCoffeeTypeInBeanTankException;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 
 public class BeanTank extends Tank{
@@ -18,9 +20,18 @@ public class BeanTank extends Tank{
         this.beanCoffeeType = beanCoffeeType;
     }
 
-    public void increaseCoffeeVolumeInTank(double coffeeVolume, CoffeeType coffeeType){
-        this.increaseVolumeInTank(coffeeVolume);
-        this.beanCoffeeType = coffeeType;
+    public void increaseCoffeeVolumeInTank(double coffeeVolume, CoffeeType coffeeType) throws WrongCoffeeTypeInBeanTankException, MaximumVolumeExceededException {
+        if(coffeeType != beanCoffeeType){
+            if (getActualVolume() == 0){
+                this.increaseVolumeInTank(coffeeVolume);
+                this.beanCoffeeType = coffeeType;
+            } else if (getActualVolume() > 0) {
+                throw new WrongCoffeeTypeInBeanTankException("The bean tank is getting filled with the incorrect coffee type");
+
+            }
+        } else {
+            this.increaseVolumeInTank(coffeeVolume);
+        }
     }
     public CoffeeType getBeanCoffeeType() {
         return beanCoffeeType;

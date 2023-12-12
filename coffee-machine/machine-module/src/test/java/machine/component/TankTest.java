@@ -1,6 +1,7 @@
 package machine.component;
 
 import fr.imt.cours.machine.component.Tank;
+import fr.imt.cours.machine.exception.MaximumVolumeExceededException;
 import fr.imt.cours.machine.exception.NegativeTankVolumeException;
 import io.cucumber.java.sl.In;
 import org.junit.Before;
@@ -29,7 +30,7 @@ public class TankTest {
      *
      */
     @Test
-    public void testVolumeIncreaseWithJUnit() {
+    public void testVolumeIncreaseWithJUnit() throws MaximumVolumeExceededException {
         double volumeToIncrease = 0.2;
 
         double volumeBeforeIncrease = tankUnderTest.getActualVolume();

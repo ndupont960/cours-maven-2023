@@ -1,5 +1,6 @@
 package fr.imt.cours.machine.component;
 
+import fr.imt.cours.machine.exception.MaximumVolumeExceededException;
 import fr.imt.cours.machine.exception.NegativeTankVolumeException;
 
 import java.util.logging.LogManager;
@@ -32,11 +33,7 @@ public class Tank {
 
         this.actualVolume -= volumeToDecrease;
         if(this.actualVolume < 0){
-            //try{
                 throw new NegativeTankVolumeException("Error : The volume value is negative in the tank ");
-            //} catch (NegativeTankVolumeException e){
-            //    this.actualVolume = 0;
-            //}
         }
 
     }
@@ -45,8 +42,12 @@ public class Tank {
      * Augmente le volume de matière dans le réservoir
      * @param volumeToIncrease Volume de matière à ajouter dans le réservoir
      */
-    public void increaseVolumeInTank(double volumeToIncrease){
+    public void increaseVolumeInTank(double volumeToIncrease) throws MaximumVolumeExceededException {
+
         this.actualVolume += volumeToIncrease;
+        if(this.actualVolume > maxVolume){
+            throw new MaximumVolumeExceededException("Error : volume exceeds maximum tank capacity");
+        }
     }
 
     public double getMaxVolume() {

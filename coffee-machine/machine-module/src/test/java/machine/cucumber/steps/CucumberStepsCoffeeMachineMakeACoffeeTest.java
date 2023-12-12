@@ -45,12 +45,12 @@ public class CucumberStepsCoffeeMachineMakeACoffeeTest {
     }
 
     @And("I add {double} liter of water in the water tank")
-    public void iAddLitersOfWater(double waterVolume) {
+    public void iAddLitersOfWater(double waterVolume) throws MaximumVolumeExceededException {
         coffeeMachine.addWaterInTank(waterVolume);
     }
 
     @And("I add {double} liter of {string} in the bean tank")
-    public void iAddLitersOfCoffeeBeans(double beanVolume, String coffeeType) {
+    public void iAddLitersOfCoffeeBeans(double beanVolume, String coffeeType) throws WrongCoffeeTypeInBeanTankException, MaximumVolumeExceededException {
         coffeeMachine.addCoffeeInBeanTank(beanVolume, CoffeeType.valueOf(coffeeType));
     }
 
@@ -92,5 +92,8 @@ public class CucumberStepsCoffeeMachineMakeACoffeeTest {
         assertThat(containerWithCoffee.getCoffeeType(), is(CoffeeType.valueOf(coffeeType)));
     }
 
-
+    @Then("the coffee machine is plugged")
+    public void theCoffeeMachineIsPlugged() {
+        Assertions.assertTrue(coffeeMachine.isPlugged());
+    }
 }

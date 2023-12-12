@@ -55,12 +55,12 @@ public class CoffeeMachine {
      * Ajoute de l'eau dans le réservoir
      * @param waterVolume Volume d'eau en litres à ajouter
      */
-    public void addWaterInTank(double waterVolume){
+    public void addWaterInTank(double waterVolume) throws MaximumVolumeExceededException {
         this.waterTank.increaseVolumeInTank(waterVolume);
     }
     public void removeWaterInTank(double waterVolume) throws NegativeTankVolumeException { this.waterTank.decreaseVolumeInTank(waterVolume); }
 
-    public void addCoffeeInBeanTank(double coffeeVolume, CoffeeType coffeeType){
+    public void addCoffeeInBeanTank(double coffeeVolume, CoffeeType coffeeType) throws WrongCoffeeTypeInBeanTankException, MaximumVolumeExceededException {
         beanTank.increaseCoffeeVolumeInTank(coffeeVolume, coffeeType);
     }
     public void removeCoffeeInBeanTank(double coffeeVolume) throws NegativeTankVolumeException {

@@ -22,3 +22,9 @@ Feature: Make a coffee with a complete coffee machine
     Then the coffee machine return a coffee mug not empty
     And a coffee volume equals to 0.15
     And a coffee "cup" containing a coffee type "ROBUSTA"
+
+
+  Scenario: A user plugs the coffee machine
+    Given a coffee machine with 0.10 l of min capacity, 3.0 l of max capacity, 600.0 l per h of water flow for the pump
+    When I plug the machine to electricity
+    Then the coffee machine is plugged

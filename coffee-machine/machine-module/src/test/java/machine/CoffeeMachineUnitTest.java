@@ -1,10 +1,7 @@
 package machine;
 
 import fr.imt.cours.machine.CoffeeMachine;
-import fr.imt.cours.machine.exception.CoffeeTypeCupDifferentOfCoffeeTypeTankException;
-import fr.imt.cours.machine.exception.LackOfBeansInTankException;
-import fr.imt.cours.machine.exception.LackOfWaterInTankException;
-import fr.imt.cours.machine.exception.NegativeTankVolumeException;
+import fr.imt.cours.machine.exception.*;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 import fr.imt.cours.storage.cupboard.container.Cup;
 import fr.imt.cours.storage.cupboard.exception.CupNotEmptyException;
@@ -24,7 +21,7 @@ public class CoffeeMachineUnitTest {
      * Ici avant chaque test on initialise la machine à café
      */
     @BeforeEach
-    public void beforeTest(){
+    public void beforeTest() throws WrongCoffeeTypeInBeanTankException, MaximumVolumeExceededException {
         coffeeMachineUnderTest = new CoffeeMachine(
                 0,10,
                 0,10,  700);
@@ -153,7 +150,7 @@ public class CoffeeMachineUnitTest {
      * dans le cas contraire
      */
     @Test
-    void testMakeACoffeeLackOfWaterException() throws NegativeTankVolumeException {
+    void testMakeACoffeeLackOfWaterException() throws NegativeTankVolumeException, MaximumVolumeExceededException {
         Cup cup = new Cup(0.1);
 
         coffeeMachineUnderTest.plugToElectricalPlug();

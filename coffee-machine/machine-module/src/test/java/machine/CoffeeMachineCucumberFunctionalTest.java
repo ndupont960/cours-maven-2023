@@ -28,9 +28,6 @@ import static org.junit.Assert.assertFalse;
         features = {"classpath:functional/features/"},
         glue = "machine.cucumber.steps"
 )
-//Permet d'ignorer les tests fonctionnels de Cucumber
-//Ne lance pas la class CoffeeMachineFunctionalTest
-
 //@Ignore
 public class CoffeeMachineCucumberFunctionalTest {
 
