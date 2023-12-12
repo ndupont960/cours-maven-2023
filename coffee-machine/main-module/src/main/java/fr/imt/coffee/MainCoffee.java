@@ -67,6 +67,17 @@ public class MainCoffee {
         } catch(LackOfBeansInTankException e) {
             logger.error(e.getMessage());
             coffeeMachine.addCoffeeInBeanTank(1.5, CoffeeType.ROBUSTA);
+        } catch (NegativeTankVolumeException e) {
+            logger.error(e.getMessage());
+            double beanVolume = coffeeMachine.getBeanTank().getActualVolume();
+            double waterVolume = coffeeMachine.getWaterTank().getActualVolume();
+            if(waterVolume < 0){
+                coffeeMachine.addWaterInTank(-waterVolume);
+            } else {
+                if(beanVolume < 0){
+                    coffeeMachine.addCoffeeInBeanTank(-beanVolume, coffeeMachine.getBeanTank().getBeanCoffeeType());
+                }
+            }
         }
 
     }

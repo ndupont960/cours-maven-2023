@@ -55,7 +55,7 @@ public class CucumberStepsCoffeeMachineMakeACoffeeTest {
     }
 
     @And("I made a coffee {string}")
-    public void iMadeACoffee(String coffeeType) throws InterruptedException, CupNotEmptyException, LackOfWaterInTankException, MachineNotPluggedException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine, LackOfBeansInTankException {
+    public void iMadeACoffee(String coffeeType) throws InterruptedException, CupNotEmptyException, LackOfWaterInTankException, MachineNotPluggedException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine, LackOfBeansInTankException, NegativeTankVolumeException {
         //On créé un mock de l'objet random
         Random randomMock = Mockito.mock(Random.class, Mockito.withSettings().withoutAnnotations());
         //On vient ensuite stubber la méthode nextGaussian pour pouvoir controler la valeur retournée

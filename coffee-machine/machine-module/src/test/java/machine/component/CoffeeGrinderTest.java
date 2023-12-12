@@ -3,6 +3,7 @@ package machine.component;
 import fr.imt.cours.machine.component.BeanTank;
 import fr.imt.cours.machine.component.CoffeeGrinder;
 import fr.imt.cours.machine.exception.LackOfBeansInTankException;
+import fr.imt.cours.machine.exception.NegativeTankVolumeException;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,9 +17,9 @@ public class CoffeeGrinderTest {
      *
      */
     @Test
-    void testGrindCoffee() throws InterruptedException {
+    void testGrindCoffee() throws InterruptedException, NegativeTankVolumeException {
 
-        int grindingTime = 10000;
+        int grindingTime = 2000;
 
         double initialVolume = 1.5;
         double maxVolume = 2;

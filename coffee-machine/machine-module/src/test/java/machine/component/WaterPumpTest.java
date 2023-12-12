@@ -2,6 +2,7 @@ package machine.component;
 
 import fr.imt.cours.machine.component.WaterPump;
 import fr.imt.cours.machine.component.WaterTank;
+import fr.imt.cours.machine.exception.NegativeTankVolumeException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +14,7 @@ public class WaterPumpTest {
      * @throws InterruptedException
      */
     @Test
-    void testPumpWater() throws InterruptedException {
+    void testPumpWater() throws InterruptedException, NegativeTankVolumeException {
 
         double initialVolume = 1.5;
         double minVolume = 0.2;
@@ -30,7 +31,9 @@ public class WaterPumpTest {
 
 
         Assertions.assertEquals(waterVolumeAfterPump, waterVolumeBeforePump - waterVolume);
+        double pumpingTimeExpected = (waterVolume / 700) * 1000 * 2;
+        double pumpingTimeActual = waterPump.pumpWater(waterVolume,waterTank);
 
-
+        Assertions.assertEquals(pumpingTimeExpected,pumpingTimeActual);
     }
 }

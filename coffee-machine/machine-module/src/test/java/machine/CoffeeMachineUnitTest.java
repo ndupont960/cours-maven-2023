@@ -1,11 +1,10 @@
 package machine;
 
 import fr.imt.cours.machine.CoffeeMachine;
-import fr.imt.cours.machine.component.BeanTank;
-import fr.imt.cours.machine.component.WaterTank;
 import fr.imt.cours.machine.exception.CoffeeTypeCupDifferentOfCoffeeTypeTankException;
 import fr.imt.cours.machine.exception.LackOfBeansInTankException;
 import fr.imt.cours.machine.exception.LackOfWaterInTankException;
+import fr.imt.cours.machine.exception.NegativeTankVolumeException;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 import fr.imt.cours.storage.cupboard.container.Cup;
 import fr.imt.cours.storage.cupboard.exception.CupNotEmptyException;
@@ -132,7 +131,7 @@ public class CoffeeMachineUnitTest {
      * dans le cas contraire.
      */
     @Test
-    void testMakeACoffeeBeanTankEmptyException() {
+    void testMakeACoffeeBeanTankEmptyException() throws NegativeTankVolumeException {
 
         Cup cup = new Cup(0.1);
 
@@ -154,7 +153,7 @@ public class CoffeeMachineUnitTest {
      * dans le cas contraire
      */
     @Test
-    void testMakeACoffeeLackOfWaterException() {
+    void testMakeACoffeeLackOfWaterException() throws NegativeTankVolumeException {
         Cup cup = new Cup(0.1);
 
         coffeeMachineUnderTest.plugToElectricalPlug();
@@ -187,6 +186,8 @@ public class CoffeeMachineUnitTest {
         });
 
     }
+
+
 
     @AfterEach
     public void afterTest(){

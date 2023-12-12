@@ -58,12 +58,12 @@ public class CoffeeMachine {
     public void addWaterInTank(double waterVolume){
         this.waterTank.increaseVolumeInTank(waterVolume);
     }
-    public void removeWaterInTank(double waterVolume) { this.waterTank.decreaseVolumeInTank(waterVolume); }
+    public void removeWaterInTank(double waterVolume) throws NegativeTankVolumeException { this.waterTank.decreaseVolumeInTank(waterVolume); }
 
     public void addCoffeeInBeanTank(double coffeeVolume, CoffeeType coffeeType){
         beanTank.increaseCoffeeVolumeInTank(coffeeVolume, coffeeType);
     }
-    public void removeCoffeeInBeanTank(double coffeeVolume){
+    public void removeCoffeeInBeanTank(double coffeeVolume) throws NegativeTankVolumeException {
         beanTank.decreaseVolumeInTank(coffeeVolume);
     }
 
@@ -83,17 +83,21 @@ public class CoffeeMachine {
      * @throws CoffeeTypeCupDifferentOfCoffeeTypeTankException Exception levée lorsque le café souhaité est différent de celui chargé dans le réservoir de la cafetière
      * @throws CannotMakeCremaWithSimpleCoffeeMachine Exception levée lorsque vous souhaitez faire un café type Crema avec un une machine classique
      */
-    public CoffeeContainer makeACoffee(Container container, CoffeeType coffeeType) throws LackOfWaterInTankException, InterruptedException, MachineNotPluggedException, CupNotEmptyException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine, LackOfBeansInTankException{
+    public CoffeeContainer makeACoffee(Container container, CoffeeType coffeeType) throws LackOfWaterInTankException, InterruptedException, MachineNotPluggedException, CupNotEmptyException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine, LackOfBeansInTankException, NegativeTankVolumeException {
         if(!isPlugged){
             throw new MachineNotPluggedException("You must plug your coffee machine.");
         }
 
         if (waterTank.getActualVolume() < container.getCapacity()){
-            throw new LackOfWaterInTankException("You must add more water in the water tank.");
+            if(waterTank.getActualVolume() >= 0){
+                throw new LackOfWaterInTankException("You must add more water in the water tank.");
+            }
         }
 
         if (beanTank.getActualVolume() <= beanTank.getMinVolume()){
-            throw new LackOfBeansInTankException("There is not enough beans in the bean tank");
+            if(beanTank.getActualVolume() >= 0){
+                throw new LackOfBeansInTankException("There is not enough beans in the bean tank");
+            }
         }
 
         if (!container.isEmpty()){
@@ -125,7 +129,7 @@ public class CoffeeMachine {
         if(container instanceof Mug)
             coffeeContainer = new CoffeeMug((Mug) container, coffeeType);
 
-        coffeeContainer.setEmpty(true);
+        coffeeContainer.setEmpty(false);
         return coffeeContainer;
     }
 

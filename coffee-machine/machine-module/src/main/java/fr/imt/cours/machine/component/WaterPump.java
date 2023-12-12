@@ -1,6 +1,7 @@
 package fr.imt.cours.machine.component;
 
 //import fr.imt.coffee.MainCoffee;
+import fr.imt.cours.machine.exception.NegativeTankVolumeException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -25,7 +26,7 @@ public class WaterPump {
      * @return pumpingTime Temps de pompage en millisecondes multiplié par 2
      * @throws InterruptedException Exception levée en cas de problèmes lors du sleep par le Thread
      */
-    public double pumpWater(double waterVolume, WaterTank waterTank) throws InterruptedException {
+    public double pumpWater(double waterVolume, WaterTank waterTank) throws InterruptedException, NegativeTankVolumeException {
         double pumpingTime = (waterVolume / pumpingCapacity) * 1000 * 2;
         logger.info("Pumping time : "  +  pumpingTime);
         logger.info("Pumping...");

@@ -1,6 +1,13 @@
 package fr.imt.cours.machine.component;
 
+import fr.imt.cours.machine.exception.NegativeTankVolumeException;
+
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
 public class Tank {
+
+
     private final double maxVolume;
     private final double minVolume;
     private double actualVolume;
@@ -21,8 +28,17 @@ public class Tank {
      * Réduit le volume de matière dans le réservoir
      * @param volumeToDecrease Volume de matière à enlever dans le réservoir
      */
-    public void decreaseVolumeInTank(double volumeToDecrease){
+    public void decreaseVolumeInTank(double volumeToDecrease) throws NegativeTankVolumeException {
+
         this.actualVolume -= volumeToDecrease;
+        if(this.actualVolume < 0){
+            //try{
+                throw new NegativeTankVolumeException("Error : The volume value is negative in the tank ");
+            //} catch (NegativeTankVolumeException e){
+            //    this.actualVolume = 0;
+            //}
+        }
+
     }
 
     /**

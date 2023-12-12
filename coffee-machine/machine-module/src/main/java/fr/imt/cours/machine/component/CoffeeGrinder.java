@@ -1,6 +1,7 @@
 package fr.imt.cours.machine.component;
 
 import fr.imt.cours.machine.exception.LackOfBeansInTankException;
+import fr.imt.cours.machine.exception.NegativeTankVolumeException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,7 +24,7 @@ public class CoffeeGrinder {
      * @return Temps pour moudre le café
      * @throws InterruptedException Exception levée en cas de problèmes lors du sleep par le Thread
      */
-    public double grindCoffee(BeanTank beanTank) throws InterruptedException {
+    public double grindCoffee(BeanTank beanTank) throws InterruptedException, NegativeTankVolumeException {
         logger.info("Grinding time : "  +  grindingTime);
         logger.info("Grinding...");
         Thread.sleep(grindingTime);
