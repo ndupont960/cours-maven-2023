@@ -2,6 +2,7 @@ package fr.imt.coffee;
 
 import fr.imt.cours.machine.EspressoCoffeeMachine;
 import fr.imt.cours.machine.exception.CoffeeTypeCupDifferentOfCoffeeTypeTankException;
+import fr.imt.cours.machine.exception.LackOfBeansInTankException;
 import fr.imt.cours.machine.exception.LackOfWaterInTankException;
 import fr.imt.cours.machine.exception.MachineNotPluggedException;
 import fr.imt.cours.storage.cupboard.FabricCupboardContainer;
@@ -63,6 +64,9 @@ public class MainEspresso {
             coffeeMachine.plugToElectricalPlug();
         } catch (CoffeeTypeCupDifferentOfCoffeeTypeTankException e) {
             logger.error(e.getMessage());
+        } catch (LackOfBeansInTankException e){
+            logger.error(e.getMessage());
+            coffeeMachine.addCoffeeInBeanTank(1.5,CoffeeType.ROBUSTA);
         }
 
 

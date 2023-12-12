@@ -5,10 +5,6 @@ import fr.imt.cours.machine.exception.*;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 import fr.imt.cours.storage.cupboard.container.*;
 import fr.imt.cours.storage.cupboard.exception.CupNotEmptyException;
-import fr.imt.cours.machine.component.*;
-import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
-import fr.imt.cours.storage.cupboard.container.*;
-import fr.imt.cours.storage.cupboard.exception.CupNotEmptyException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -62,9 +58,13 @@ public class CoffeeMachine {
     public void addWaterInTank(double waterVolume){
         this.waterTank.increaseVolumeInTank(waterVolume);
     }
+    public void removeWaterInTank(double waterVolume) { this.waterTank.decreaseVolumeInTank(waterVolume); }
 
     public void addCoffeeInBeanTank(double coffeeVolume, CoffeeType coffeeType){
         beanTank.increaseCoffeeVolumeInTank(coffeeVolume, coffeeType);
+    }
+    public void removeCoffeeInBeanTank(double coffeeVolume){
+        beanTank.decreaseVolumeInTank(coffeeVolume);
     }
 
     /**
@@ -83,13 +83,17 @@ public class CoffeeMachine {
      * @throws CoffeeTypeCupDifferentOfCoffeeTypeTankException Exception levée lorsque le café souhaité est différent de celui chargé dans le réservoir de la cafetière
      * @throws CannotMakeCremaWithSimpleCoffeeMachine Exception levée lorsque vous souhaitez faire un café type Crema avec un une machine classique
      */
-    public CoffeeContainer makeACoffee(Container container, CoffeeType coffeeType) throws LackOfWaterInTankException, InterruptedException, MachineNotPluggedException, CupNotEmptyException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine{
+    public CoffeeContainer makeACoffee(Container container, CoffeeType coffeeType) throws LackOfWaterInTankException, InterruptedException, MachineNotPluggedException, CupNotEmptyException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine, LackOfBeansInTankException{
         if(!isPlugged){
             throw new MachineNotPluggedException("You must plug your coffee machine.");
         }
 
         if (waterTank.getActualVolume() < container.getCapacity()){
             throw new LackOfWaterInTankException("You must add more water in the water tank.");
+        }
+
+        if (beanTank.getActualVolume() <= beanTank.getMinVolume()){
+            throw new LackOfBeansInTankException("There is not enough beans in the bean tank");
         }
 
         if (!container.isEmpty()){

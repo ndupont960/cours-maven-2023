@@ -1,5 +1,6 @@
 package fr.imt.cours.machine;
 
+import fr.imt.cours.machine.exception.LackOfBeansInTankException;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 import fr.imt.cours.storage.cupboard.container.*;
 import fr.imt.cours.storage.cupboard.exception.CupNotEmptyException;
@@ -36,7 +37,7 @@ public class EspressoCoffeeMachine extends CoffeeMachine{
      * @throws InterruptedException Exception levée lorsqu'un problème survient dans les Threads lors du sleep
      * @throws CoffeeTypeCupDifferentOfCoffeeTypeTankException Exception levée lorsque le café souhaité est différent de celui chargé dans le réservoir de la cafetière
      */
-    public CoffeeContainer makeACoffee(Container container, CoffeeType coffeeType) throws LackOfWaterInTankException, InterruptedException, MachineNotPluggedException, CupNotEmptyException, CoffeeTypeCupDifferentOfCoffeeTypeTankException {
+    public CoffeeContainer makeACoffee(Container container, CoffeeType coffeeType) throws LackOfWaterInTankException, LackOfBeansInTankException, MachineNotPluggedException, CupNotEmptyException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, InterruptedException {
         if(!isPlugged()){
             throw new MachineNotPluggedException("You must plug your coffee machine");
         }

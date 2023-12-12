@@ -1,10 +1,7 @@
 package machine.cucumber.steps;
 
 import fr.imt.cours.machine.CoffeeMachine;
-import fr.imt.cours.machine.exception.CannotMakeCremaWithSimpleCoffeeMachine;
-import fr.imt.cours.machine.exception.CoffeeTypeCupDifferentOfCoffeeTypeTankException;
-import fr.imt.cours.machine.exception.LackOfWaterInTankException;
-import fr.imt.cours.machine.exception.MachineNotPluggedException;
+import fr.imt.cours.machine.exception.*;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 import fr.imt.cours.storage.cupboard.container.*;
 import fr.imt.cours.storage.cupboard.exception.CupNotEmptyException;
@@ -58,7 +55,7 @@ public class CucumberStepsCoffeeMachineMakeACoffeeTest {
     }
 
     @And("I made a coffee {string}")
-    public void iMadeACoffee(String coffeeType) throws InterruptedException, CupNotEmptyException, LackOfWaterInTankException, MachineNotPluggedException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine {
+    public void iMadeACoffee(String coffeeType) throws InterruptedException, CupNotEmptyException, LackOfWaterInTankException, MachineNotPluggedException, CoffeeTypeCupDifferentOfCoffeeTypeTankException, CannotMakeCremaWithSimpleCoffeeMachine, LackOfBeansInTankException {
         //On créé un mock de l'objet random
         Random randomMock = Mockito.mock(Random.class, Mockito.withSettings().withoutAnnotations());
         //On vient ensuite stubber la méthode nextGaussian pour pouvoir controler la valeur retournée

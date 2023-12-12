@@ -1,5 +1,6 @@
 package fr.imt.cours.machine.component;
 
+import fr.imt.cours.machine.exception.LackOfBeansInTankException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,7 +27,7 @@ public class CoffeeGrinder {
         logger.info("Grinding time : "  +  grindingTime);
         logger.info("Grinding...");
         Thread.sleep(grindingTime);
-        beanTank.increaseVolumeInTank(0.2);
+        beanTank.decreaseVolumeInTank(0.2);
         logger.info("Grinding OK");
         return grindingTime;
     }

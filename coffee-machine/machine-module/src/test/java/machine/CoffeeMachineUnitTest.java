@@ -1,13 +1,15 @@
 package machine;
 
 import fr.imt.cours.machine.CoffeeMachine;
+import fr.imt.cours.machine.component.BeanTank;
+import fr.imt.cours.machine.component.WaterTank;
+import fr.imt.cours.machine.exception.CoffeeTypeCupDifferentOfCoffeeTypeTankException;
+import fr.imt.cours.machine.exception.LackOfBeansInTankException;
+import fr.imt.cours.machine.exception.LackOfWaterInTankException;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 import fr.imt.cours.storage.cupboard.container.Cup;
 import fr.imt.cours.storage.cupboard.exception.CupNotEmptyException;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
 import java.util.Random;
@@ -27,6 +29,8 @@ public class CoffeeMachineUnitTest {
         coffeeMachineUnderTest = new CoffeeMachine(
                 0,10,
                 0,10,  700);
+        coffeeMachineUnderTest.addWaterInTank(2);
+        coffeeMachineUnderTest.addCoffeeInBeanTank(5,CoffeeType.MOKA);
     }
 
     /**
@@ -101,7 +105,7 @@ public class CoffeeMachineUnitTest {
     }
 
     /**
-     * On test qu'une exception est bien levée lorsque que le cup passé en paramètre retourne qu'il n'est pas vide
+     * On teste qu'une exception est bien levée lorsque que le cup passé en paramètre retourne qu'il n'est pas vide
      * Tout comme le test sur la mise en défaut afin d'avoir un comportement isolé et indépendant de la machine
      * on vient ici mocker un objet Cup afin d'en maitriser complétement son comportement
      * On ne compte pas sur "le bon fonctionnement de la méthode"
@@ -113,6 +117,7 @@ public class CoffeeMachineUnitTest {
 
         coffeeMachineUnderTest.plugToElectricalPlug();
 
+
         //assertThrows( [Exception class expected], [lambda expression with the method that throws an exception], [exception message expected])
         //AssertThrows va permettre de venir tester la levée d'une exception, ici lorsque que le contenant passé en
         //paramètre n'est pas vide
@@ -120,6 +125,67 @@ public class CoffeeMachineUnitTest {
         Assertions.assertThrows(CupNotEmptyException.class, ()->{
                 coffeeMachineUnderTest.makeACoffee(mockCup, CoffeeType.MOKA);
             });
+    }
+
+    /**
+     * On teste qu'une exception est levée quand le réservoir de grains est vide, et qu'elle n'est pas levée
+     * dans le cas contraire.
+     */
+    @Test
+    void testMakeACoffeeBeanTankEmptyException() {
+
+        Cup cup = new Cup(0.1);
+
+        coffeeMachineUnderTest.plugToElectricalPlug();
+
+        Assertions.assertDoesNotThrow(() -> {
+            coffeeMachineUnderTest.makeACoffee(cup,coffeeMachineUnderTest.getBeanTank().getBeanCoffeeType());
+        });
+
+        coffeeMachineUnderTest.removeCoffeeInBeanTank(coffeeMachineUnderTest.getBeanTank().getActualVolume()); // empties bean tank
+
+        Assertions.assertThrows(LackOfBeansInTankException.class, ()-> {
+            coffeeMachineUnderTest.makeACoffee(cup,coffeeMachineUnderTest.getBeanTank().getBeanCoffeeType());
+        });
+    }
+
+    /**
+     * On teste qu'une exception est levée quand le volume du réservoir d'eau est insuffisant, et qu'elle n'est pas levée
+     * dans le cas contraire
+     */
+    @Test
+    void testMakeACoffeeLackOfWaterException() {
+        Cup cup = new Cup(0.1);
+
+        coffeeMachineUnderTest.plugToElectricalPlug();
+        coffeeMachineUnderTest.removeWaterInTank(coffeeMachineUnderTest.getWaterTank().getActualVolume() - 0.05);
+        // Leaves only 0.05L in the water tank
+
+        Assertions.assertThrows(LackOfWaterInTankException.class, ()->{
+            coffeeMachineUnderTest.makeACoffee(cup,coffeeMachineUnderTest.getBeanTank().getBeanCoffeeType());
+        });
+
+        coffeeMachineUnderTest.addWaterInTank(2);
+        Assertions.assertDoesNotThrow(()->{
+            coffeeMachineUnderTest.makeACoffee(cup,coffeeMachineUnderTest.getBeanTank().getBeanCoffeeType());
+        });
+    }
+
+    @Test
+    void testMakeACoffeeDifferentCoffeeTypes() {
+
+        Cup cup = new Cup(0.1);
+
+        coffeeMachineUnderTest.plugToElectricalPlug();
+
+        Assertions.assertThrows(CoffeeTypeCupDifferentOfCoffeeTypeTankException.class, ()->{
+            coffeeMachineUnderTest.makeACoffee(cup, CoffeeType.ROBUSTA);
+        });
+
+        Assertions.assertDoesNotThrow(() -> {
+            coffeeMachineUnderTest.makeACoffee(cup, coffeeMachineUnderTest.getBeanTank().getBeanCoffeeType());
+        });
+
     }
 
     @AfterEach

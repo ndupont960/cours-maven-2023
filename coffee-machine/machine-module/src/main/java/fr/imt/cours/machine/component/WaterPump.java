@@ -22,7 +22,7 @@ public class WaterPump {
      * durée du pompage : (volume en L / débit de la pompe en L/seconde) * 1000 pour les ms * 2
      * @param waterVolume Volume d'eau à pomper
      * @param waterTank Réservoir d'eau
-     * @return Temps de pompage en millisecondes multiplié par 2
+     * @return pumpingTime Temps de pompage en millisecondes multiplié par 2
      * @throws InterruptedException Exception levée en cas de problèmes lors du sleep par le Thread
      */
     public double pumpWater(double waterVolume, WaterTank waterTank) throws InterruptedException {

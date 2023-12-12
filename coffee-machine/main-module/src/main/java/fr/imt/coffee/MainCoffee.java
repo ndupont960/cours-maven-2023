@@ -1,10 +1,7 @@
 package fr.imt.coffee;
 
 import fr.imt.cours.machine.CoffeeMachine;
-import fr.imt.cours.machine.exception.CannotMakeCremaWithSimpleCoffeeMachine;
-import fr.imt.cours.machine.exception.CoffeeTypeCupDifferentOfCoffeeTypeTankException;
-import fr.imt.cours.machine.exception.LackOfWaterInTankException;
-import fr.imt.cours.machine.exception.MachineNotPluggedException;
+import fr.imt.cours.machine.exception.*;
 import fr.imt.cours.storage.cupboard.FabricCupboardContainer;
 import fr.imt.cours.storage.cupboard.coffee.type.CoffeeType;
 import fr.imt.cours.storage.cupboard.container.Container;
@@ -67,6 +64,9 @@ public class MainCoffee {
             logger.error(e.getMessage());
         } catch (CannotMakeCremaWithSimpleCoffeeMachine e) {
             logger.error(e.getMessage());
+        } catch(LackOfBeansInTankException e) {
+            logger.error(e.getMessage());
+            coffeeMachine.addCoffeeInBeanTank(1.5, CoffeeType.ROBUSTA);
         }
 
     }
